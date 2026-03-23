@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mariana Domínguez — Nutricionista Dietista</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Twemoji global ─────────────────────────────────────── */
+    img.emoji {
+      height: 1em; width: 1em;
+      vertical-align: -0.15em;
+      display: inline-block;
+      pointer-events: none;
+    }
+    /* floating food: fill the whole span */
+    .food-float img.emoji {
+      height: 1em; width: 1em;
+      vertical-align: middle;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,.13));
+    }
+    /* icon containers inside cards/services */
+    .hero-card-icon img.emoji,
+    .service-icon img.emoji,
+    .why-icon img.emoji,
+    .credential-icon img.emoji,
+    .step-num img.emoji {
+      height: 1.1em; width: 1.1em;
+      vertical-align: middle;
+    }
+    /* specialty scrolling pills */
+    .specialty-pill img.emoji {
+      height: 1.2em; width: 1.2em;
+      vertical-align: middle;
+    }
+
+    :root {
+      --green-deep:   #1A3D2B;
+      --green-mid:    #2E6B4E;
+      --green-light:  #76B893;
+      --green-pale:   #E8F5EE;
+      --cream:        #F8F5EF;
+      --white:        #FFFFFF;
+      --amber:        #E8814A;
+      --amber-light:  #FDF0E8;
+      --text:         #1A1A18;
+      --muted:        #6B7068;
+      --border:       #E2DDD4;
+      --shadow:       0 4px 32px rgba(26,61,43,.08);
+      --shadow-card:  0 2px 16px rgba(26,61,43,.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Typography ──────────────────────────────────────────── */
+    h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 700; line-height: 1.15; }
+
+    /* ── Utilities ───────────────────────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--green-pale); color: var(--green-mid);
+      font-size: 12px; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; padding: 5px 12px;
+      border-radius: 100px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Inter', sans-serif; font-weight: 600;
+      font-size: 15px; padding: 14px 28px; border-radius: 100px;
+      cursor: pointer; transition: all .25s ease; text-decoration: none;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--amber); color: var(--white);
+      box-shadow: 0 4px 20px rgba(232,129,74,.35);
+    }
+    .btn-primary:hover {
+      background: #d4713e; transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(232,129,74,.45);
+    }
+    .btn-outline {
+      background: transparent; color: var(--green-deep);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover { background: var(--white); border-color: var(--green-mid); }
+
+    /* ── Scroll reveal ───────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ══════════════════════════════════════════════════════════
+       NAV
+    ══════════════════════════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 0;
+      background: rgba(248,245,239,.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: var(--shadow); }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Fraunces', serif; font-weight: 700;
+      font-size: 18px; color: var(--green-deep); text-decoration: none;
+      display: flex; flex-direction: column; line-height: 1.1;
+    }
+    .nav-logo span { font-size: 11px; font-family: 'Inter', sans-serif;
+      font-weight: 400; color: var(--muted); letter-spacing: .04em; }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nav-tel {
+      font-size: 14px; color: var(--muted); text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-tel:hover { color: var(--green-deep); }
+
+    /* ══════════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════════ */
+    .hero {
+      padding-top: 120px; padding-bottom: 100px;
+      position: relative; overflow: hidden;
+      min-height: 640px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(118,184,147,.14) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 10% 80%, rgba(46,107,78,.09) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* decorative food circles */
+    .hero-bg::before {
+      content: '';
+      position: absolute; right: -80px; top: 40px;
+      width: 520px; height: 520px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(118,184,147,.22) 0%, transparent 70%);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; left: -60px; bottom: -40px;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,129,74,.12) 0%, transparent 70%);
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 580px; }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 28px;
+    }
+    .hero-eyebrow-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green-light); animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(1.4); }
+    }
+    .hero-eyebrow-text {
+      font-size: 14px; font-weight: 500; color: var(--green-mid);
+      letter-spacing: .04em;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 76px);
+      color: var(--green-deep);
+      margin-bottom: 24px;
+      letter-spacing: -.02em;
+    }
+    .hero h1 em {
+      font-style: italic; color: var(--amber);
+    }
+    .hero-sub {
+      font-size: 18px; color: var(--muted); max-width: 560px;
+      line-height: 1.7; margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .hero-note {
+      font-size: 13px; color: var(--muted); margin-top: 20px;
+    }
+    .hero-note strong { color: var(--green-mid); }
+
+    /* ── floating food emojis ───────────────────────────────── */
+    .food-float {
+      position: absolute;
+      font-size: 48px;
+      pointer-events: none;
+      z-index: 0;
+      animation: wobble 6s ease-in-out infinite;
+    }
+    .food-float:nth-child(1)  { top: 12%;  right: 38%; font-size: 52px; animation-delay: 0s;    animation-duration: 5.5s; }
+    .food-float:nth-child(2)  { top: 28%;  right: 14%; font-size: 42px; animation-delay: 1.2s;  animation-duration: 7s;   }
+    .food-float:nth-child(3)  { top: 58%;  right: 40%; font-size: 38px; animation-delay: 2.4s;  animation-duration: 6s;   }
+    .food-float:nth-child(4)  { top: 72%;  right: 20%; font-size: 56px; animation-delay: 0.8s;  animation-duration: 8s;   }
+    .food-float:nth-child(5)  { top: 8%;   right: 22%; font-size: 34px; animation-delay: 3s;    animation-duration: 5s;   }
+    .food-float:nth-child(6)  { top: 44%;  right: 6%;  font-size: 44px; animation-delay: 1.6s;  animation-duration: 6.5s; }
+
+    @keyframes wobble {
+      0%   { transform: translateY(0px) rotate(0deg); }
+      25%  { transform: translateY(-10px) rotate(3deg); }
+      50%  { transform: translateY(-18px) rotate(-2deg); }
+      75%  { transform: translateY(-8px) rotate(2deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    /* ── floating cards ─────────────────────────────────────── */
+    .hero-cards {
+      position: absolute; right: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 320px;
+      pointer-events: none;
+    }
+    .hero-card-float {
+      position: absolute;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 14px 18px;
+      box-shadow: 0 8px 32px rgba(26,61,43,.12), 0 2px 8px rgba(26,61,43,.06);
+      display: flex; align-items: center; gap: 12px;
+      min-width: 210px;
+      animation: floatCard 5s ease-in-out infinite;
+      backdrop-filter: blur(4px);
+    }
+    /* card positions */
+    .hero-card-float:nth-child(1) { top: -160px; right: 20px;  animation-delay: 0s;   animation-duration: 5s; }
+    .hero-card-float:nth-child(2) { top: -60px;  right: 170px; animation-delay: 1s;   animation-duration: 6s; }
+    .hero-card-float:nth-child(3) { top:  60px;  right: 10px;  animation-delay: .6s;  animation-duration: 5.5s; }
+    .hero-card-float:nth-child(4) { top:  160px; right: 150px; animation-delay: 1.8s; animation-duration: 7s; }
+
+    @keyframes floatCard {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-12px); }
+    }
+    .hero-card-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .hero-card-label { font-size: 11px; color: var(--muted); font-weight: 500; letter-spacing: .02em; }
+    .hero-card-value { font-size: 14px; font-weight: 700; color: var(--text); margin-top: 1px; }
+    .hero-card-sub   { font-size: 11px; color: var(--green-mid); font-weight: 500; margin-top: 1px; }
+
+    /* ══════════════════════════════════════════════════════════
+       STATS BAR
+    ══════════════════════════════════════════════════════════ */
+    .stats {
+      background: var(--green-deep);
+      padding: 40px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      text-align: center; padding: 8px 24px;
+      border-right: 1px solid rgba(255,255,255,.12);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: 'Fraunces', serif;
+      font-size: 42px; font-weight: 700;
+      color: var(--white); line-height: 1;
+    }
+    .stat-number span { color: var(--green-light); }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,.6); margin-top: 6px; }
+
+    /* ══════════════════════════════════════════════════════════
+       ABOUT
+    ══════════════════════════════════════════════════════════ */
+    .about { padding: 100px 0; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-photo-wrap {
+      width: 100%; aspect-ratio: 3/4;
+      background: linear-gradient(145deg, var(--green-pale) 0%, rgba(118,184,147,.3) 100%);
+      border-radius: 24px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .about-photo-placeholder {
+      font-size: 80px; opacity: .3;
+    }
+    .about-photo-note {
+      position: absolute; bottom: 16px; left: 16px; right: 16px;
+      background: rgba(255,255,255,.9); backdrop-filter: blur(8px);
+      border-radius: 12px; padding: 12px 16px;
+      font-size: 12px; color: var(--muted); text-align: center;
+      border: 1px solid var(--border);
+    }
+    .about-badge {
+      position: absolute; top: 20px; right: -20px;
+      background: var(--amber); color: var(--white);
+      border-radius: 14px; padding: 16px 20px;
+      box-shadow: 0 8px 24px rgba(232,129,74,.4);
+      text-align: center;
+    }
+    .about-badge-num {
+      font-family: 'Fraunces', serif;
+      font-size: 32px; font-weight: 900; line-height: 1;
+    }
+    .about-badge-label { font-size: 11px; font-weight: 600; opacity: .85; margin-top: 2px; }
+
+    .about-content { }
+    .about-content .tag { margin-bottom: 20px; }
+    .about-content h2 { font-size: clamp(28px, 3.5vw, 42px); color: var(--green-deep); margin-bottom: 20px; }
+    .about-content p { color: var(--muted); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
+    .about-credentials {
+      display: flex; flex-direction: column; gap: 10px; margin-top: 28px;
+    }
+    .credential {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--text);
+    }
+    .credential-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--green-pale); color: var(--green-mid);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       SERVICES
+    ══════════════════════════════════════════════════════════ */
+    .services {
+      padding: 100px 0;
+      background: var(--white);
+    }
+    .section-header { text-align: center; max-width: 600px; margin: 0 auto 60px; }
+    .section-header .tag { margin-bottom: 16px; }
+    .section-header h2 { font-size: clamp(28px, 3.5vw, 44px); color: var(--green-deep); margin-bottom: 16px; }
+    .section-header p { font-size: 16px; color: var(--muted); line-height: 1.7; }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .service-card {
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 20px; padding: 32px;
+      transition: all .3s ease; cursor: default;
+    }
+    .service-card:hover {
+      background: var(--white);
+      box-shadow: var(--shadow);
+      transform: translateY(-4px);
+      border-color: var(--green-light);
+    }
+    .service-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; margin-bottom: 20px;
+    }
+    .service-card h3 { font-size: 18px; color: var(--green-deep); margin-bottom: 10px; }
+    .service-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* ══════════════════════════════════════════════════════════
+       HOW IT WORKS
+    ══════════════════════════════════════════════════════════ */
+    .process { padding: 100px 0; }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; position: relative; margin-top: 60px;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute; top: 28px; left: 17%; right: 17%;
+      height: 1px; background: var(--border);
+      z-index: 0;
+    }
+    .process-step {
+      text-align: center; padding: 0 32px;
+      position: relative; z-index: 1;
+    }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--white); border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700;
+      color: var(--green-mid); margin: 0 auto 20px;
+      transition: all .3s ease;
+    }
+    .process-step:hover .step-num {
+      background: var(--green-deep); color: var(--white);
+      border-color: var(--green-deep); transform: scale(1.1);
+    }
+    .process-step h3 { font-size: 18px; color: var(--green-deep); margin-bottom: 10px; }
+    .process-step p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* ══════════════════════════════════════════════════════════
+       WHY CHOOSE
+    ══════════════════════════════════════════════════════════ */
+    .why {
+      padding: 100px 0;
+      background: var(--green-deep);
+      position: relative; overflow: hidden;
+    }
+    .why::before {
+      content: '';
+      position: absolute; right: -200px; top: -200px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: rgba(118,184,147,.08);
+    }
+    .why .section-header h2 { color: var(--white); }
+    .why .section-header p { color: rgba(255,255,255,.6); }
+    .why .tag { background: rgba(118,184,147,.2); color: var(--green-light); }
+
+    .why-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+      position: relative; z-index: 1;
+    }
+    .why-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px; padding: 32px;
+      transition: background .3s ease;
+    }
+    .why-card:hover { background: rgba(255,255,255,.10); }
+    .why-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .why-icon {
+      font-size: 28px;
+      width: 52px; height: 52px; border-radius: 14px;
+      background: rgba(118,184,147,.2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .why-card h3 { font-size: 18px; color: var(--white); }
+    .why-card p { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.7; }
+
+    /* ══════════════════════════════════════════════════════════
+       PRICING
+    ══════════════════════════════════════════════════════════ */
+    .pricing { padding: 100px 0; background: var(--white); }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+      max-width: 860px; margin: 60px auto 0;
+    }
+    .pricing-card {
+      border: 1.5px solid var(--border); border-radius: 24px;
+      padding: 36px 28px; position: relative;
+      transition: all .3s ease;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .pricing-card.featured {
+      background: var(--green-deep); border-color: var(--green-deep);
+      transform: scale(1.04);
+    }
+    .pricing-card.featured:hover { transform: scale(1.04) translateY(-4px); }
+    .featured-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--amber); color: var(--white);
+      font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      padding: 4px 14px; border-radius: 100px;
+    }
+    .pricing-name {
+      font-size: 14px; font-weight: 600; letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--muted); margin-bottom: 12px;
+    }
+    .pricing-card.featured .pricing-name { color: rgba(255,255,255,.6); }
+    .pricing-price {
+      font-family: 'Fraunces', serif; font-size: 42px; font-weight: 700;
+      color: var(--green-deep); line-height: 1;
+    }
+    .pricing-card.featured .pricing-price { color: var(--white); }
+    .pricing-currency { font-size: 20px; vertical-align: super; font-weight: 400; }
+    .pricing-period { font-size: 14px; color: var(--muted); margin: 6px 0 20px; }
+    .pricing-card.featured .pricing-period { color: rgba(255,255,255,.5); }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .pricing-features li {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 14px; color: var(--text);
+    }
+    .pricing-card.featured .pricing-features li { color: rgba(255,255,255,.8); }
+    .pricing-features li::before {
+      content: '✓'; font-weight: 700; color: var(--green-light);
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .pricing-cta { margin-top: 28px; }
+    .btn-white {
+      background: var(--white); color: var(--green-deep);
+      font-weight: 700;
+    }
+    .btn-white:hover { background: var(--cream); }
+
+    /* ══════════════════════════════════════════════════════════
+       SPECIALTIES STRIP
+    ══════════════════════════════════════════════════════════ */
+    .specialties { padding: 60px 0; overflow: hidden; }
+    .specialties-track {
+      display: flex; gap: 12px;
+      animation: scroll-track 28s linear infinite;
+      width: max-content;
+    }
+    @keyframes scroll-track {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .specialty-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 100px; padding: 10px 20px;
+      font-size: 14px; font-weight: 500; color: var(--text);
+      white-space: nowrap;
+    }
+    .specialty-pill span { font-size: 18px; }
+
+    /* ══════════════════════════════════════════════════════════
+       CTA BANNER
+    ══════════════════════════════════════════════════════════ */
+    .cta-banner {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--amber) 0%, #d4713e 100%);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .cta-banner .tag { background: rgba(255,255,255,.2); color: var(--white); }
+    .cta-banner h2 {
+      font-size: clamp(30px, 4vw, 52px); color: var(--white);
+      margin: 20px 0 14px; position: relative; z-index: 1;
+    }
+    .cta-banner p {
+      font-size: 18px; color: rgba(255,255,255,.85);
+      margin-bottom: 40px; position: relative; z-index: 1;
+    }
+    .btn-cta-white {
+      background: var(--white); color: var(--amber);
+      font-size: 17px; padding: 18px 40px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.2);
+    }
+    .btn-cta-white:hover {
+      background: var(--cream); transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+    }
+    .cta-contact {
+      margin-top: 24px; font-size: 14px; color: rgba(255,255,255,.7);
+      position: relative; z-index: 1;
+    }
+    .cta-contact a { color: var(--white); text-decoration: none; font-weight: 600; }
+
+    /* ══════════════════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════════════════ */
+    footer {
+      background: var(--green-deep); padding: 56px 0 32px;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand .nav-logo { font-size: 20px; color: var(--white); }
+    .footer-brand .nav-logo span { color: rgba(255,255,255,.5); }
+    .footer-brand p {
+      font-size: 14px; color: rgba(255,255,255,.5); margin-top: 14px;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 13px; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; color: rgba(255,255,255,.4);
+      margin-bottom: 16px; font-family: 'Inter', sans-serif;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col li a, .footer-col li {
+      font-size: 14px; color: rgba(255,255,255,.65); text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-col li a:hover { color: var(--white); }
+    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.08); margin-bottom: 24px; }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; color: rgba(255,255,255,.35);
+    }
+    .footer-reg {
+      font-size: 12px; color: rgba(255,255,255,.3);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .hero-cards { display: none; }
+      .food-float { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-visual { order: -1; max-width: 340px; margin: 0 auto; }
+      .about-badge { right: -8px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .process-steps::before { display: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 380px; }
+      .pricing-card.featured { transform: none; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); row-gap: 24px; }
+      .stat-item:nth-child(2) { border-right: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+      .nav-tel { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">
+        Mariana Domínguez
+        <span>Nutricionista Dietista · Sogamoso</span>
+      </a>
+      <div class="nav-actions">
+        <a href="tel:3167896486" class="nav-tel">📞 (316) 789 6486</a>
+        <a href="https://calendar.app.google/XDrDnkRpZJpGY3BL8" target="_blank" class="btn btn-primary">
+          Agendar sesión →
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ════════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-dot"></div>
+          <span class="hero-eyebrow-text">Nutricionista Dietista · 28 años de experiencia</span>
+        </div>
+        <h1>Aliméntate bien,<br /><em>vive mejor.</em></h1>
+        <p class="hero-sub">
+          Planes de alimentación personalizados, atención cercana y resultados reales.
+          Agenda tu consulta hoy — asequible, profesional y a tu medida.
+        </p>
+        <div class="hero-actions">
+          <a href="https://calendar.app.google/XDrDnkRpZJpGY3BL8" target="_blank" class="btn btn-primary" style="font-size:17px; padding:18px 36px;">
+            Agendar mi consulta →
+          </a>
+          <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+        </div>
+        <p class="hero-note">
+          <strong>Primera consulta disponible esta semana</strong> · Atención en Sogamoso, Boyacá
+        </p>
+      </div>
+
+      <!-- Floating food emojis -->
+      <div aria-hidden="true">
+        <span class="food-float">🥑</span>
+        <span class="food-float">🍓</span>
+        <span class="food-float">🥦</span>
+        <span class="food-float">🍋</span>
+        <span class="food-float">🫐</span>
+        <span class="food-float">🥕</span>
+      </div>
+
+      <!-- Floating info cards (4) -->
+      <div class="hero-cards" aria-hidden="true">
+        <div class="hero-card-float">
+          <div class="hero-card-icon" style="background:#E8F5EE;">🥗</div>
+          <div>
+            <div class="hero-card-label">Plan de hoy</div>
+            <div class="hero-card-value">Dieta personalizada</div>
+            <div class="hero-card-sub">hecha para ti</div>
+          </div>
+        </div>
+        <div class="hero-card-float">
+          <div class="hero-card-icon" style="background:#FDF0E8;">⭐</div>
+          <div>
+            <div class="hero-card-label">Experiencia</div>
+            <div class="hero-card-value">28+ años</div>
+            <div class="hero-card-sub">nutrición clínica</div>
+          </div>
+        </div>
+        <div class="hero-card-float">
+          <div class="hero-card-icon" style="background:#E8F5EE;">✅</div>
+          <div>
+            <div class="hero-card-label">Registro profesional</div>
+            <div class="hero-card-value">MND-05070</div>
+            <div class="hero-card-sub">Universidad Nacional</div>
+          </div>
+        </div>
+        <div class="hero-card-float">
+          <div class="hero-card-icon" style="background:#FDF0E8;">💰</div>
+          <div>
+            <div class="hero-card-label">Precios</div>
+            <div class="hero-card-value">Accesibles</div>
+            <div class="hero-card-sub">al alcance de todos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       STATS
+  ════════════════════════════════════════════════════════ -->
+  <div class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-number">28<span>+</span></div>
+          <div class="stat-label">Años de experiencia clínica</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number">5<span>+</span></div>
+          <div class="stat-label">Centros de salud e instituciones</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number">120<span>h</span></div>
+          <div class="stat-label">Diplomado nutrición avanzada</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number">1<span>996</span></div>
+          <div class="stat-label">Graduada Universidad Nacional</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       ABOUT
+  ════════════════════════════════════════════════════════ -->
+  <section class="about" id="sobre-mi">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual reveal">
+          <div class="about-photo-wrap">
+            <div class="about-photo-placeholder">🌿</div>
+            <div class="about-photo-note">Foto de Mariana Domínguez</div>
+          </div>
+          <div class="about-badge">
+            <div class="about-badge-num">28+</div>
+            <div class="about-badge-label">años de<br>experiencia</div>
+          </div>
+        </div>
+
+        <div class="about-content reveal">
+          <div class="tag">Sobre mí</div>
+          <h2>Nutrición con experiencia, cercanía y ciencia.</h2>
+          <p>
+            Soy Mariana Domínguez Niño, Nutricionista-Dietista egresada de la
+            <strong>Universidad Nacional de Colombia</strong>, con más de 28 años de trayectoria
+            en el área clínica y comunitaria en Colombia.
+          </p>
+          <p>
+            He trabajado en clínicas, hospitales, hogares infantiles y de adulto mayor,
+            atendiendo pacientes de todas las edades y condiciones. Hoy ofrezco consulta
+            personalizada para que logres tus metas de salud de forma real y sostenible.
+          </p>
+          <div class="about-credentials">
+            <div class="credential">
+              <div class="credential-icon">🎓</div>
+              <span>Universidad Nacional de Colombia — Nutrición y Dietética, 1996</span>
+            </div>
+            <div class="credential">
+              <div class="credential-icon">🏥</div>
+              <span>Clínica de Especialistas Ltda. — activa desde 2016 hasta hoy</span>
+            </div>
+            <div class="credential">
+              <div class="credential-icon">📋</div>
+              <span>Reg. Prof. MND-05070 · Tarjeta profesional 0452</span>
+            </div>
+            <div class="credential">
+              <div class="credential-icon">📚</div>
+              <span>Diplomado en Terapia Médica Nutricional — FELANPE / U. El Bosque</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       SCROLLING SPECIALTIES
+  ════════════════════════════════════════════════════════ -->
+  <section class="specialties">
+    <div class="specialties-track">
+      <!-- first set -->
+      <div class="specialty-pill"><span>🫀</span> Diabetes e hipertensión</div>
+      <div class="specialty-pill"><span>⚖️</span> Control de peso</div>
+      <div class="specialty-pill"><span>🧬</span> Nutrición oncológica</div>
+      <div class="specialty-pill"><span>👶</span> Nutrición infantil</div>
+      <div class="specialty-pill"><span>👴</span> Adulto mayor</div>
+      <div class="specialty-pill"><span>🩺</span> Soporte nutricional clínico</div>
+      <div class="specialty-pill"><span>🫁</span> Paciente crítico UCI</div>
+      <div class="specialty-pill"><span>🫃</span> Obesidad</div>
+      <div class="specialty-pill"><span>🍽️</span> Planes de alimentación</div>
+      <div class="specialty-pill"><span>🏋️</span> Rendimiento y salud</div>
+      <div class="specialty-pill"><span>🫚</span> Enfermedades renales</div>
+      <div class="specialty-pill"><span>🌱</span> Salud comunitaria</div>
+      <!-- duplicate for seamless loop -->
+      <div class="specialty-pill"><span>🫀</span> Diabetes e hipertensión</div>
+      <div class="specialty-pill"><span>⚖️</span> Control de peso</div>
+      <div class="specialty-pill"><span>🧬</span> Nutrición oncológica</div>
+      <div class="specialty-pill"><span>👶</span> Nutrición infantil</div>
+      <div class="specialty-pill"><span>👴</span> Adulto mayor</div>
+      <div class="specialty-pill"><span>🩺</span> Soporte nutricional clínico</div>
+      <div class="specialty-pill"><span>🫁</span> Paciente crítico UCI</div>
+      <div class="specialty-pill"><span>🫃</span> Obesidad</div>
+      <div class="specialty-pill"><span>🍽️</span> Planes de alimentación</div>
+      <div class="specialty-pill"><span>🏋️</span> Rendimiento y salud</div>
+      <div class="specialty-pill"><span>🫚</span> Enfermedades renales</div>
+      <div class="specialty-pill"><span>🌱</span> Salud comunitaria</div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       SERVICES
+  ════════════════════════════════════════════════════════ -->
+  <section class="services" id="servicios">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="tag">Servicios</div>
+        <h2>¿En qué te puedo ayudar?</h2>
+        <p>Desde el manejo de enfermedades crónicas hasta alcanzar tu peso ideal, tengo la experiencia para acompañarte con evidencia científica y atención personalizada.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon" style="background:#E8F5EE;">🥗</div>
+          <h3>Plan de alimentación personalizado</h3>
+          <p>Diseño tu plan nutricional según tus objetivos, condición de salud, preferencias y rutina diaria. No hay planes genéricos: todo es para ti.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon" style="background:#FDF0E8;">⚖️</div>
+          <h3>Control de peso</h3>
+          <p>Estrategias sostenibles para bajar o mantener tu peso sin dietas extremas ni sacrificios innecesarios. Resultados reales a largo plazo.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon" style="background:#E8F5EE;">🩺</div>
+          <h3>Enfermedades crónicas</h3>
+          <p>Manejo nutricional especializado para diabetes, hipertensión, enfermedades renales, oncológicas y otras patologías crónicas no transmisibles.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon" style="background:#FDF0E8;">👶</div>
+          <h3>Nutrición infantil y familiar</h3>
+          <p>Atención nutricional para niños y familias, con enfoque en crecimiento adecuado, hábitos saludables y prevención desde la primera infancia.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon" style="background:#E8F5EE;">👴</div>
+          <h3>Nutrición del adulto mayor</h3>
+          <p>Valoración y seguimiento nutricional especializado para adultos mayores, cubriendo requerimientos propios de esta etapa de vida.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon" style="background:#FDF0E8;">📋</div>
+          <h3>Educación nutricional</h3>
+          <p>Aprende a leer etiquetas, entender tu cuerpo y tomar decisiones informadas. La educación es la herramienta más poderosa para tu salud.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       HOW IT WORKS
+  ════════════════════════════════════════════════════════ -->
+  <section class="process" id="como-funciona">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="tag">El proceso</div>
+        <h2>Así de fácil es empezar</h2>
+        <p>Tres pasos simples para que comiences tu camino hacia una alimentación que te funcione de verdad.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <div class="step-num">1</div>
+          <h3>Agenda tu consulta</h3>
+          <p>Elige el día y hora que mejor se adapte a tu horario usando el enlace de reservas. Rápido y sin complicaciones.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-num">2</div>
+          <h3>Consulta de valoración</h3>
+          <p>Nos reunimos, evalúo tu estado nutricional, historial clínico, hábitos y objetivos. Tú hablas, yo escucho.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-num">3</div>
+          <h3>Tu plan personalizado</h3>
+          <p>Recibes un plan de alimentación hecho a tu medida, con seguimiento continuo para ajustarlo según tus avances.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       WHY CHOOSE
+  ════════════════════════════════════════════════════════ -->
+  <section class="why">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="tag">¿Por qué Mariana?</div>
+        <h2>Experiencia que marca<br />la diferencia</h2>
+        <p>No soy solo un número de registro profesional. Soy casi tres décadas de casos reales, aprendizaje constante y resultados medibles.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <div class="why-card-header">
+            <div class="why-icon">🏅</div>
+            <h3>28 años de experiencia clínica real</h3>
+          </div>
+          <p>He trabajado en UCI pediátrica y de adultos, hospitales de mediana y alta complejidad, clínicas privadas, hogares infantiles y fundaciones. Mi experiencia abarca todas las etapas y condiciones.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-card-header">
+            <div class="why-icon">🎯</div>
+            <h3>Planes 100% personalizados</h3>
+          </div>
+          <p>No existe un plan igual para dos personas. Analizo tu condición, tus hábitos, tu presupuesto y tus gustos para diseñar algo que realmente funcione para ti y sea sostenible en el tiempo.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-card-header">
+            <div class="why-icon">💚</div>
+            <h3>Precios accesibles</h3>
+          </div>
+          <p>La buena nutrición no debe ser un lujo. Ofrezco consultas a precios que no comprometan tu bolsillo, porque creo que todos merecen acceso a orientación nutricional de calidad.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-card-header">
+            <div class="why-icon">📖</div>
+            <h3>Actualización científica permanente</h3>
+          </div>
+          <p>Me mantengo al día con congresos, diplomados y especializaciones en nutrición clínica — incluyendo formación con FELANPE, Abbott Nutrition, Nestlé Health Science y más.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       PRICING
+  ════════════════════════════════════════════════════════ -->
+  <section class="pricing" id="precios">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="tag">Precios</div>
+        <h2>Inversión en tu salud</h2>
+        <p>Consultas accesibles, sin sorpresas. La buena nutrición está al alcance de todos.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card reveal">
+          <div class="pricing-name">Consulta única</div>
+          <div class="pricing-price">
+            <span class="pricing-currency">$</span>Consultar
+          </div>
+          <div class="pricing-period">una sesión</div>
+          <ul class="pricing-features">
+            <li>Valoración nutricional completa</li>
+            <li>Plan de alimentación básico</li>
+            <li>Orientación personalizada</li>
+          </ul>
+          <div class="pricing-cta">
+            <a href="https://calendar.app.google/XDrDnkRpZJpGY3BL8" target="_blank" class="btn btn-outline" style="width:100%; justify-content:center;">
+              Agendar
+            </a>
+          </div>
+        </div>
+
+        <div class="pricing-card featured reveal">
+          <div class="featured-badge">MÁS ELEGIDO</div>
+          <div class="pricing-name">Seguimiento mensual</div>
+          <div class="pricing-price">
+            <span class="pricing-currency">$</span>Consultar
+          </div>
+          <div class="pricing-period">por mes · 2 sesiones</div>
+          <ul class="pricing-features">
+            <li>2 consultas al mes</li>
+            <li>Plan personalizado y ajustado</li>
+            <li>Seguimiento de avances</li>
+            <li>Comunicación directa</li>
+          </ul>
+          <div class="pricing-cta">
+            <a href="https://calendar.app.google/XDrDnkRpZJpGY3BL8" target="_blank" class="btn btn-white" style="width:100%; justify-content:center;">
+              Agendar →
+            </a>
+          </div>
+        </div>
+
+        <div class="pricing-card reveal">
+          <div class="pricing-name">Programa intensivo</div>
+          <div class="pricing-price">
+            <span class="pricing-currency">$</span>Consultar
+          </div>
+          <div class="pricing-period">programa de 3 meses</div>
+          <ul class="pricing-features">
+            <li>6 sesiones en 3 meses</li>
+            <li>Plan completo y evolución</li>
+            <li>Educación nutricional incluida</li>
+            <li>Apoyo continuo</li>
+          </ul>
+          <div class="pricing-cta">
+            <a href="https://calendar.app.google/XDrDnkRpZJpGY3BL8" target="_blank" class="btn btn-outline" style="width:100%; justify-content:center;">
+              Agendar
+            </a>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center; margin-top:28px; font-size:14px; color:var(--muted);">
+        Precios finales confirmados en la primera consulta. Pagos en efectivo y transferencia.
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       CTA BANNER
+  ════════════════════════════════════════════════════════ -->
+  <section class="cta-banner" id="agendar">
+    <div class="container" style="position:relative; z-index:1;">
+      <div class="tag reveal">¿Lista para empezar?</div>
+      <h2 class="reveal">Tu mejor versión empieza<br />con lo que comes hoy.</h2>
+      <p class="reveal">Agenda tu primera consulta en minutos. Sin compromisos, sin complicaciones.</p>
+      <a href="https://calendar.app.google/XDrDnkRpZJpGY3BL8" target="_blank" class="btn btn-cta-white reveal">
+        Agendar mi consulta →
+      </a>
+      <div class="cta-contact reveal">
+        ¿Tienes preguntas? Escríbeme a
+        <a href="mailto:madonud@gmail.com">madonud@gmail.com</a>
+        o llama al
+        <a href="tel:3167896486">(316) 789 6486</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo">
+            Mariana Domínguez
+            <span>Nutricionista Dietista</span>
+          </a>
+          <p>Más de 28 años transformando la salud de personas en Colombia con nutrición basada en evidencia científica y atención personalizada.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="#sobre-mi">Sobre mí</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#como-funciona">Cómo funciona</a></li>
+            <li><a href="#precios">Precios</a></li>
+            <li><a href="#agendar">Agendar</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="tel:3167896486">(316) 789 6486</a></li>
+            <li><a href="mailto:madonud@gmail.com">madonud@gmail.com</a></li>
+            <li>Sogamoso, Boyacá</li>
+            <li>Calle 14 No. 10-58, Apto 801</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-divider" />
+      <div class="footer-bottom">
+        <span>© 2026 Mariana Domínguez Niño. Todos los derechos reservados.</span>
+        <span class="footer-reg">Reg. Prof. MND-05070 · Tarjeta Prof. 0452 · C.C. 46.363.066</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Nav scroll shadow ──────────────────────────────────────
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // ── Scroll reveal ──────────────────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // stagger siblings inside the same parent
+          const siblings = entry.target.parentElement.querySelectorAll('.reveal');
+          let delay = 0;
+          siblings.forEach((el, idx) => {
+            if (el === entry.target) delay = idx * 80;
+          });
+          setTimeout(() => entry.target.classList.add('visible'), delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Twemoji: replace all OS emojis with consistent Twitter SVGs ──
+    twemoji.parse(document.body, {
+      folder: 'svg',
+      ext: '.svg',
+      base: 'https://cdn.jsdelivr.net/npm/@twemoji/svg@latest/'
+    });
+  </script>
+
+  <!-- Twemoji library -->
+  <script src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
